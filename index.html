@@ -3,636 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amara Ysla's 1st Birthday - Monsters University Theme</title>
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://p4ngalanm0.github.io/Ysla-First-Birthday/">
-    <meta property="og:title" content="💌 You're Invited! Amara Ysla's 1st Birthday">
-    <meta property="og:description" content="Tap to open invitation details✨">
-    <meta property="og:image" content="https://p4ngalanm0.github.io/Ysla-First-Birthday/msg_invi.jpg">
-
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="💌 You're Invited! Amara Ysla's 1st Birthday">
-    <meta property="twitter:description" content="Tap to open invitation details✨">
-    <meta property="twitter:image" content="https://p4ngalanm0.github.io/Ysla-First-Birthday/msg_invi.jpg">
-
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@600;800&family=Paytone+One&display=swap" rel="stylesheet">
-    
+    <title>Amara Ysla's 1st Birthday!</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: 'Open Sans', sans-serif;
-            color: #2b1055;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(rgba(13, 27, 42, 0.3), rgba(13, 27, 42, 0.3)), 
-                        url('monsterwall2.png') no-repeat center center fixed;
-            background-size: cover;
+            margin: 0;
             padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* Dimmed Background Overlay */
-        .modal-overlay {
+        /* Modal */
+        #modalOverlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(6px);
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
             display: flex;
-            justify-content: center;
             align-items: center;
-            z-index: 5000;
-            padding: 20px;
-            opacity: 1;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.3s;
         }
 
-        .modal-overlay.hidden {
+        #modalOverlay.hidden {
             opacity: 0;
-            visibility: hidden;
             pointer-events: none;
         }
 
-        /* Centered Sweet Intro Card */
-        .sweet-note-card {
-            background: #ffffff;
-            max-width: 460px;
-            width: 100%;
-            padding: 32px 24px;
-            border-radius: 24px;
+        .modal-content {
+            background: #1e1e2f;
+            padding: 30px;
+            border-radius: 12px;
             text-align: center;
-            border: 5px solid #00b4d8;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 4px #e209d7;
-            animation: modalPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 90%;
+            width: 320px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border: 2px solid #00b4d8;
         }
 
-        @keyframes modalPopIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .sweet-note-card .heart-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .sweet-note-card p {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 1.02rem;
-            font-weight: 700;
-            color: #4c1d95;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .dismiss-btn {
-            background: #ccff00;
-            color: #6b21a8;
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.1rem;
-            padding: 12px 30px;
-            border-radius: 30px;
-            border: 2px solid #6b21a8;
+        .modal-btn {
+            background: #00b4d8;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
             cursor: pointer;
-            box-shadow: 0 4px 0px #4c1d95;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
+            margin-top: 15px;
         }
 
-        .dismiss-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 0px #4c1d95;
-        }
-
-        .invitation-card {
-            background: rgba(255, 255, 255, 0.95);
-            max-width: 580px;
-            width: 100%;
-            padding: 40px 30px 35px;
-            border-radius: 28px;
+        /* Main Container */
+        .container {
             text-align: center;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3), inset 0 0 0 6px #00b4d8;
-            backdrop-filter: blur(8px);
-            border: 6px solid #e209d7;
-            position: relative;
-            z-index: 2;
+            max-width: 500px;
+            width: 100%;
         }
 
-        .monster-eye {
-            width: 52px;
-            height: 52px;
-            background: #ffffff;
+        /* Interactive Eye */
+        .eye-container {
+            width: 100px;
+            height: 100px;
+            background: #fff;
             border-radius: 50%;
-            border: 4px solid #6b21a8;
-            position: absolute;
-            top: -26px;
-            right: 25px;
+            margin: 20px auto;
+            position: relative;
             display: flex;
-            justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            z-index: 10;
+            justify-content: center;
+            overflow: hidden;
+            border: 4px solid #6b21a8;
         }
 
         .pupil {
-            width: 22px;
-            height: 22px;
+            width: 40px;
+            height: 40px;
             background: #00b4d8;
-            border: 3px solid #1e293b;
             border-radius: 50%;
-            transition: transform 0.05s ease-out;
-            pointer-events: none;
+            position: absolute;
+            transition: transform 0.1s ease-out;
         }
 
+        .pupil::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #000;
+            border-radius: 50%;
+            top: 12.5px;
+            left: 12.5px;
+        }
+
+        /* NPC Box */
         .npc-box {
-            position: fixed;
-            bottom: 70px;
-            right: -600px;
-            display: flex;
-            align-items: flex-start;
-            z-index: 2000;
-            transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
+            background: #2a2a40;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 5px solid #ccff00;
+            display: none;
         }
 
         .npc-box.show {
-            right: 10px;
-        }
-
-        .npc-dialogue {
-            background: #ffffff;
-            border: 4px solid #ccff00;
-            padding: 12px 16px;
-            border-radius: 20px 20px 0px 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
-            color: #6b21a8;
-            font-family: 'Fredoka One', cursive;
-            font-size: 0.95rem;
-            position: relative;
-            line-height: 1.3;
-            max-width: 210px;
-            margin-right: -25px;
-            margin-top: 20px;
-            z-index: 2;
-        }
-
-        .npc-dialogue::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            right: -10px;
-            width: 0;
-            height: 0;
-            border: 10px solid transparent;
-            border-left-color: #ccff00;
-            border-bottom: 0;
-            transform: rotate(-15deg);
-        }
-
-        .npc-image-wrap {
-            width: 220px;
-            height: auto;
-            flex-shrink: 0;
-            background: transparent;
-            overflow: visible;
-            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
-            animation: monsterWiggle 0.8s infinite alternate ease-in-out;
-            z-index: 1;
-        }
-
-        .npc-image-wrap img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
             display: block;
         }
 
-        @keyframes monsterWiggle {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-10px) rotate(3deg); }
+        /* Scream Canister */
+        .canister-container {
+            width: 100%;
+            background: #333;
+            height: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 15px 0;
+            border: 2px solid #555;
         }
 
-        .tagline {
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            color: #00b4d8;
-            margin-bottom: 5px;
-            text-shadow: 1px 1px 0px #d81da9;
+        .canister-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff007f, #ccff00);
+            transition: width 0.2s;
         }
 
-        h1 {
-            font-family: 'Paytone One', sans-serif;
-            font-size: 3.6rem;
-            color: #6b21a8;
-            line-height: 1.1;
-            margin-bottom: 15px;
-            margin-top: 15px;
-            text-shadow: 3px 3px 0px #ccff00, 5px 5px 0px #00b4d8;
-            word-wrap: break-word;
-        }
-
-        .sub-name {
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #ff007f;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .message {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: #334155;
-            font-weight: 600;
-            margin-bottom: 30px;
-            padding: 0 10px;
-        }
-
-        .details-box {
-            background: rgba(240, 253, 244, 0.95);
-            border-radius: 20px;
-            padding: 24px 20px 20px 20px;
-            margin-bottom: 25px;
-            border: 4px dashed #6b21a8;
-            box-shadow: inset 0 0 12px rgba(0, 180, 216, 0.2), 0 8px 20px rgba(0, 0, 0, 0.15);
-            text-align: left;
-            position: relative;
-        }
-
-        .details-box h2 {
-            font-family: 'Paytone One', cursive;
-            font-size: 1.25rem;
-            color: #ffffff;
-            background: #6b21a8;
-            display: inline-block;
-            padding: 6px 20px;
-            border-radius: 30px;
-            border: 3px solid #6b21a8;
-            margin: -42px auto 16px auto;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            text-shadow: 2px 2px 0px #00b4d8;
-        }
-
-        .detail-item {
-            margin-bottom: 12px;
-            font-size: 1.05rem;
-            color: #1e293b;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #ffffff;
-            padding: 10px 14px;
-            border-radius: 14px;
-            border: 2px solid #e209d7;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        .detail-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .detail-item strong {
-            font-family: 'Fredoka One', cursive;
-            color: #6b21a8;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-        }
-
-        .detail-item a {
-            color: #00b4d8;
-            font-weight: 800;
-            text-decoration: underline;
-            transition: color 0.2s ease;
-        }
-
-        .detail-item a:hover {
-            color: #ff007f;
-        }
-
-        .detail-icon-bg {
+        /* Buttons */
+        .action-btn {
             background: #ccff00;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            border: 2px solid #6b21a8;
-            flex-shrink: 0;
-        }
-
-        .showcase-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #ccff00 0%, #a3e635 100%);
-            color: #6b21a8;
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.25rem;
-            padding: 14px 36px;
-            border-radius: 50px;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.2s ease;
-            box-shadow: 0 6px 0px #4c1d95, 0 10px 15px rgba(0, 0, 0, 0.2);
-            border: 2px solid #fff;
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
             cursor: pointer;
-            min-width: 280px;
+            margin: 8px;
+            transition: transform 0.1s;
         }
 
-        .showcase-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 0px #4c1d95, 0 12px 20px rgba(0, 0, 0, 0.25);
-            background: linear-gradient(135deg, #d9f99d 0%, #ccff00 100%);
-        }
-
-        .showcase-btn:disabled {
-            cursor: not-allowed;
-            transform: none;
-            opacity: 0.9;
-        }
-
-        .scream-canister {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #111827;
-            border: 3px solid #ccff00;
-            border-radius: 16px;
-            padding: 10px 14px;
-            color: #ffffff;
-            font-family: 'Fredoka One', cursive;
-            font-size: 0.95rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            z-index: 1000;
-            cursor: pointer;
-            text-align: center;
-            user-select: none;
-            touch-action: manipulation;
-            transition: transform 0.1s ease;
-        }
-
-        .scream-canister:active {
+        .action-btn:active {
             transform: scale(0.95);
         }
 
-        .scream-track {
-            height: 10px;
-            background: #374151;
-            border-radius: 5px;
-            width: 100%;
-            margin-top: 6px;
-            overflow: hidden;
+        .action-btn:disabled {
+            background: #555;
+            color: #888;
+            cursor: not-allowed;
         }
 
-        .scream-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #a3e635, #00b4d8);
-            width: 0%;
-            transition: width 0.2s ease-in-out;
-        }
-
+        /* Rocket */
         .rocket-container {
-            position: fixed;
-            top: 100vh;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 9999;
-            pointer-events: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            opacity: 0;
-            width: 320px;
-        }
-
-        .rocket-emoji {
-            font-size: 9rem;
+            font-size: 50px;
+            margin: 20px 0;
             display: inline-block;
-            transform: rotate(-45deg);
-            filter: drop-shadow(0 15px 20px rgba(0,0,0,0.4));
-            margin-bottom: -15px;
-            z-index: 2;
         }
 
-        .see-you-banner {
-            background: #ff007f;
-            color: #ffffff;
-            font-family: 'Fredoka One', cursive;
-            font-size: 2.5rem;
-            padding: 12px 30px;
-            border-radius: 60px;
-            border: 5px solid #ccff00;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            margin-top: 25px;
-            white-space: nowrap;
-            text-shadow: 3px 3px 0px #6b21a8;
+        .rocket-container.launching {
+            animation: launchAnim 24s forwards ease-in-out;
         }
 
-        .milestone-ribbon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 25px;
-            background: rgba(107, 33, 168, 0.92);
-            padding: 35px 20px;
-            border-radius: 30px;
-            border: 4px dashed #00b4d8;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            width: 100%;
-        }
-
-        .milestone-card {
-            background: #fff;
-            border: 4px solid #ccff00;
-            border-radius: 16px;
-            padding: 10px;
-            text-align: center;
-            width: 100%;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-        }
-
-        .milestone-card img {
-            width: 100%;
-            height: 190px;
-            object-fit: cover;
-            border-radius: 10px;
-            display: block;
-        }
-
-        .milestone-card span {
-            display: block;
-            font-family: 'Fredoka One', cursive;
-            color: #6b21a8;
-            font-size: 1.15rem;
-            margin-top: 8px;
-        }
-
-        .launching {
-            animation: launchRocketClearScreen 24s linear forwards;
-        }
-
-        @keyframes launchRocketClearScreen {
-            0% { transform: translate(-50%, 0); opacity: 0; }
-            1% { transform: translate(-50%, 0); opacity: 1; }
-            95% { opacity: 1; }
-            100% { transform: translate(-50%, calc(-100vh - 100%)); opacity: 0; }
-        }
-
-        @media (max-width: 480px) {
-            body { padding: 12px 10px; }
-            .sweet-note-card { padding: 22px 16px; }
-            .sweet-note-card p { font-size: 0.92rem; }
-            .invitation-card { padding: 22px 16px 20px; border-width: 4px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), inset 0 0 0 4px #00b4d8; }
-            .tagline { font-size: 0.95rem; }
-            h1 { font-size: 2.2rem; margin-top: 8px; margin-bottom: 8px; text-shadow: 2px 2px 0px #ccff00, 3px 3px 0px #00b4d8; }
-            .sub-name { font-size: 1.1rem; margin-bottom: 12px; }
-            .message { font-size: 0.88rem; line-height: 1.45; margin-bottom: 24px; padding: 0; }
-            .details-box { padding: 18px 12px 12px 12px; margin-bottom: 18px; border-radius: 16px; }
-            .details-box h2 { font-size: 1rem; padding: 4px 14px; margin: -32px auto 12px auto; }
-            .detail-item { font-size: 0.88rem; gap: 8px; margin-bottom: 8px; padding: 8px 10px; }
-            .detail-item strong { font-size: 0.95rem; }
-            .detail-icon-bg { width: 30px; height: 30px; font-size: 0.95rem; }
-            .showcase-btn { font-size: 1rem; padding: 10px 20px; min-width: 100%; }
-            .see-you-banner { margin-top: 18px; font-size: 1.5rem; padding: 8px 16px; }
-            .rocket-emoji { font-size: 5.5rem; }
-            .rocket-container { width: 240px; }
-            .milestone-card img { height: 130px; }
-            .scream-canister { bottom: 12px; right: 12px; font-size: 0.8rem; padding: 8px 10px; }
-            .npc-box { bottom: 60px; }
-            .npc-dialogue { font-size: 0.8rem; padding: 8px 12px; max-width: 150px; margin-right: -20px; margin-top: 10px; }
-            .npc-image-wrap { width: 150px; }
+        @keyframes launchAnim {
+            0% { transform: translateY(0) scale(1); }
+            10% { transform: translateY(-20px) scale(1.1); }
+            50% { transform: translateY(-400px) scale(0.5); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Centered Modal with Dimmed Background & Sweet Message -->
-    <div id="modalOverlay" class="modal-overlay">
-        <div class="sweet-note-card">
-            <div class="heart-icon">💖</div>
-            <p>
-                "Time flies so fast! It feels like just yesterday she was tiny, and now our sweet little monster is turning 1 year old! We are so happy and grateful that you are joining us to celebrate this wonderful milestone!"
-            </p>
-            <button class="dismiss-btn" onclick="closeIntroModal()">Let's Party, Little Monster! 🎉</button>
+    <!-- Intro Modal -->
+    <div id="modalOverlay">
+        <div class="modal-content">
+            <h2>Welcome to the Party! 🎉</h2>
+            <p>Tap below to enable sound and join Amara Ysla's celebration!</p>
+            <button class="modal-btn" onclick="closeIntroModal()">Enter Party</button>
         </div>
     </div>
 
-    <div class="invitation-card">
-        <div class="monster-eye"><div class="pupil" id="pupil"></div></div>
+    <div class="container">
+        <h1>Amara Ysla's 1st Birthday 🎂</h1>
 
-        <div class="tagline">Calling All Little Monsters!</div>
-        <h1>Amara Ysla</h1>
-        <div class="sub-name">Is Turning One Monstrous Year Old!</div>
-        <p class="message">
-            Get ready to roar! Report to campus as our favorite little monster graduates to <strong>ONE</strong>! Join us for a day of high-energy fun, sweet treats, and monstrous celebration!
-        </p>
-
-        <div class="details-box">
-            <div class="detail-item">
-                <div class="detail-icon-bg">📅</div>
-                <div><strong>When:</strong> Saturday, October 3, 2026</div>
-            </div>
-            <div class="detail-item">
-                <div class="detail-icon-bg">⏰</div>
-                <div><strong>Time:</strong> Start at 2:00 PM</div>
-            </div>
-            <div class="detail-item">
-                <div class="detail-icon-bg">📍</div>
-                <div><strong>Where:</strong> <a href="https://maps.app.goo.gl/hvqYKTiiPGuq5emk6" target="_blank" rel="noopener noreferrer">Purok 1, Barangay Sinalhan, Santa Rosa, Laguna</a></div>
-            </div>
+        <div class="eye-container">
+            <div id="pupil" class="pupil"></div>
         </div>
 
-        <button id="showcaseBtn" onclick="triggerMonsterNPC()" class="showcase-btn">See Amara's Journey! 🚀</button>
-    </div>
-
-    <div id="npcBox" class="npc-box">
-        <div id="npcText" class="npc-dialogue">"ROAR! Thanks for joining Amara's party!"</div>
-        <div class="npc-image-wrap">
-            <img src="msg_hi.png" alt="Monster Greeting">
-        </div>
-    </div>
-
-    <div class="scream-canister" id="screamCanisterBtn" onclick="chargeScreamCanister()">
-        ⚡ Tap to Charge: <span id="screampct">0%</span>
-        <div class="scream-track">
-            <div class="scream-fill" id="canisterBar"></div>
-        </div>
-    </div>
-
-    <div id="rocketContainer" class="rocket-container">
-        <div class="rocket-emoji">🚀</div>
-        
-        <div class="milestone-ribbon">
-            <div class="milestone-card"><img src="newborn.jpeg" alt="New Born"><span>New Born 🍼</span></div>
-            <div class="milestone-card"><img src="month1.jpeg" alt="Month 1"><span>1st 🍼</span></div>
-            <div class="milestone-card"><img src="month2.jpeg" alt="Month 2"><span>2nd 🍼</span></div>
-            <div class="milestone-card"><img src="month3.jpeg" alt="Month 3"><span>3rd 🍼</span></div>
-            <div class="milestone-card"><img src="month4.jpeg" alt="Month 4"><span>4th 🧸</span></div>
-            <div class="milestone-card"><img src="month5.jpeg" alt="Month 5"><span>5th 🧸</span></div>
-            <div class="milestone-card"><img src="month6.jpeg" alt="Month 6"><span>6th 🎈</span></div>
-            <div class="milestone-card"><img src="month7.jpeg" alt="Month 7"><span>7th 🎈</span></div>
-            <div class="milestone-card"><img src="month8.jpeg" alt="Month 8"><span>8th 🌟</span></div>
-            <div class="milestone-card"><img src="month9.jpeg" alt="Month 9"><span>9th 🌟</span></div>
-            <div class="milestone-card"><img src="month10.jpeg" alt="Month 10"><span>10th 💖</span></div>
-            <div class="milestone-card"><img src="month11.jpg" alt="Month 11"><span>11th 💖</span></div>
+        <div id="npcBox" class="npc-box">
+            <p id="npcText">...</p>
         </div>
 
-        <div class="see-you-banner">See You There! 🎉</div>
+        <div class="canister-container">
+            <div id="canisterBar" class="canister-bar"></div>
+        </div>
+        <p>Scream Energy: <span id="screampct">0%</span></p>
+
+        <button class="action-btn" onclick="chargeScreamCanister()">Fill Canister ⚡</button>
+        <button id="showcaseBtn" class="action-btn" onclick="triggerMonsterNPC()">Start Rocket Show 🚀</button>
+
+        <div>
+            <div id="rocketContainer" class="rocket-container">🚀</div>
+        </div>
     </div>
 
     <script>
         const AudioContext = window.AudioContext || window.webkitAudioContext;
-        let audioCtx;
+        let audioCtx = null;
 
-        function initAudio() {
+        // Synchronously create/unlock AudioContext on first touch
+        function unlockAudio() {
             if (!audioCtx) {
                 audioCtx = new AudioContext();
             }
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
+            
+            // Mobile iOS session type configuration
             if (navigator.audioSession) {
                 navigator.audioSession.type = 'playback';
             }
-        }
 
-        // Unlock audio context on any initial user touch/click across the document
-        function unlockAudio() {
-            initAudio();
+            // Clean up listeners after first successful interaction
             document.removeEventListener('touchstart', unlockAudio);
+            document.removeEventListener('touchend', unlockAudio);
             document.removeEventListener('click', unlockAudio);
         }
-        document.addEventListener('touchstart', unlockAudio, { once: true });
-        document.addEventListener('click', unlockAudio, { once: true });
+
+        document.addEventListener('touchstart', unlockAudio, { capture: true, once: true });
+        document.addEventListener('touchend', unlockAudio, { capture: true, once: true });
+        document.addEventListener('click', unlockAudio, { capture: true, once: true });
+
+        function ensureAudioReady() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
 
         function closeIntroModal() {
-            initAudio();
+            ensureAudioReady();
             const overlay = document.getElementById('modalOverlay');
             overlay.classList.add('hidden');
         }
 
         function playChargeSound(pitchMultiplier = 1) {
-            initAudio();
-            if (!audioCtx) return;
+            ensureAudioReady();
+            if (!audioCtx || audioCtx.state !== 'running') return;
 
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
@@ -651,8 +279,8 @@
         }
 
         function playRoarSound() {
-            initAudio();
-            if (!audioCtx) return;
+            ensureAudioReady();
+            if (!audioCtx || audioCtx.state !== 'running') return;
 
             const now = audioCtx.currentTime;
 
@@ -716,8 +344,8 @@
         }
 
         function playLaunchSound() {
-            initAudio();
-            if (!audioCtx) return;
+            ensureAudioReady();
+            if (!audioCtx || audioCtx.state !== 'running') return;
 
             const bufferSize = audioCtx.sampleRate * 1.5;
             const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
@@ -752,7 +380,7 @@
         ];
 
         function triggerMonsterNPC() {
-            initAudio();
+            ensureAudioReady();
             const btn = document.getElementById('showcaseBtn');
             const npcBox = document.getElementById('npcBox');
             const npcText = document.getElementById('npcText');
@@ -812,7 +440,7 @@
 
         let energy = 0;
         function chargeScreamCanister() {
-            initAudio();
+            ensureAudioReady();
             if (energy < 100) {
                 energy += 10;
                 document.getElementById('screampct').innerText = energy + '%';
@@ -847,6 +475,5 @@
             }
         });
     </script>
-
 </body>
 </html>

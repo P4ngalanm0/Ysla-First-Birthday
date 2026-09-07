@@ -42,6 +42,81 @@
             position: relative;
         }
 
+        /* Dimmed Background Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5000;
+            padding: 20px;
+            opacity: 1;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Centered Sweet Intro Card */
+        .sweet-note-card {
+            background: #ffffff;
+            max-width: 460px;
+            width: 100%;
+            padding: 32px 24px;
+            border-radius: 24px;
+            text-align: center;
+            border: 5px solid #00b4d8;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 4px #e209d7;
+            animation: modalPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalPopIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .sweet-note-card .heart-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .sweet-note-card p {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: #4c1d95;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .dismiss-btn {
+            background: #ccff00;
+            color: #6b21a8;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.1rem;
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: 2px solid #6b21a8;
+            cursor: pointer;
+            box-shadow: 0 4px 0px #4c1d95;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .dismiss-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0px #4c1d95;
+        }
+
         .invitation-card {
             background: rgba(255, 255, 255, 0.95);
             max-width: 580px;
@@ -56,7 +131,6 @@
             z-index: 2;
         }
 
-        /* Interactive Eye Feature */
         .monster-eye {
             width: 52px;
             height: 52px;
@@ -83,11 +157,10 @@
             pointer-events: none;
         }
 
-        /* Image Monster NPC Box (Right Side Pop-in) */
         .npc-box {
             position: fixed;
             bottom: 70px;
-            right: -600px; /* Hidden off-screen by default */
+            right: -600px;
             display: flex;
             align-items: flex-start;
             z-index: 2000;
@@ -99,7 +172,6 @@
             right: 10px;
         }
 
-        /* Speech Bubble Positioned Near Waving Hand */
         .npc-dialogue {
             background: #ffffff;
             border: 4px solid #ccff00;
@@ -130,7 +202,6 @@
             transform: rotate(-15deg);
         }
 
-        /* Scaled Up Monster Container */
         .npc-image-wrap {
             width: 220px;
             height: auto;
@@ -188,45 +259,85 @@
             line-height: 1.6;
             color: #334155;
             font-weight: 600;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             padding: 0 10px;
         }
 
         .details-box {
-            background: #f0fdf4;
-            border-radius: 18px;
-            padding: 22px;
+            background: rgba(240, 253, 244, 0.95);
+            border-radius: 20px;
+            padding: 24px 20px 20px 20px;
             margin-bottom: 25px;
-            border: 3px solid #ccff00;
-            box-shadow: inset 0 0 10px rgba(0, 180, 216, 0.15);
+            border: 4px dashed #6b21a8;
+            box-shadow: inset 0 0 12px rgba(0, 180, 216, 0.2), 0 8px 20px rgba(0, 0, 0, 0.15);
             text-align: left;
+            position: relative;
         }
 
         .details-box h2 {
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.3rem;
-            color: #6b21a8;
-            margin-bottom: 12px;
+            font-family: 'Paytone One', cursive;
+            font-size: 1.25rem;
+            color: #ffffff;
+            background: #6b21a8;
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 30px;
+            border: 3px solid #6b21a8;
+            margin: -42px auto 16px auto;
             text-transform: uppercase;
             letter-spacing: 1px;
             text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-shadow: 2px 2px 0px #00b4d8;
         }
 
         .detail-item {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 1.05rem;
             color: #1e293b;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            background: #ffffff;
+            padding: 10px 14px;
+            border-radius: 14px;
+            border: 2px solid #e209d7;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
 
         .detail-item:last-child {
             margin-bottom: 0;
         }
 
-        .detail-icon {
-            font-size: 1.4rem;
+        .detail-item strong {
+            font-family: 'Fredoka One', cursive;
+            color: #6b21a8;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-item a {
+            color: #00b4d8;
+            font-weight: 800;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+
+        .detail-item a:hover {
+            color: #ff007f;
+        }
+
+        .detail-icon-bg {
+            background: #ccff00;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border: 2px solid #6b21a8;
+            flex-shrink: 0;
         }
 
         .showcase-btn {
@@ -259,7 +370,6 @@
             opacity: 0.9;
         }
 
-        /* Interactive Scream Canister Widget */
         .scream-canister {
             position: fixed;
             bottom: 20px;
@@ -299,7 +409,6 @@
             transition: width 0.2s ease-in-out;
         }
 
-        /* Rocket & Milestone Banner Container */
         .rocket-container {
             position: fixed;
             top: 100vh;
@@ -376,135 +485,55 @@
             margin-top: 8px;
         }
 
-        /* Flight Keyframes */
         .launching {
             animation: launchRocketClearScreen 24s linear forwards;
         }
 
         @keyframes launchRocketClearScreen {
-            0% {
-                transform: translate(-50%, 0);
-                opacity: 0;
-            }
-            1% {
-                transform: translate(-50%, 0);
-                opacity: 1;
-            }
-            95% {
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, calc(-100vh - 100%));
-                opacity: 0;
-            }
+            0% { transform: translate(-50%, 0); opacity: 0; }
+            1% { transform: translate(-50%, 0); opacity: 1; }
+            95% { opacity: 1; }
+            100% { transform: translate(-50%, calc(-100vh - 100%)); opacity: 0; }
         }
 
-        /* Mobile Adjustments */
         @media (max-width: 480px) {
-            body {
-                padding: 12px 10px;
-            }
-
-            .invitation-card {
-                padding: 22px 16px 20px;
-                border-width: 4px;
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), inset 0 0 0 4px #00b4d8;
-            }
-
-            .tagline {
-                font-size: 0.95rem;
-            }
-
-            h1 {
-                font-size: 2.2rem;
-                margin-top: 8px;
-                margin-bottom: 8px;
-                text-shadow: 2px 2px 0px #ccff00, 3px 3px 0px #00b4d8;
-            }
-
-            .sub-name {
-                font-size: 1.1rem;
-                margin-bottom: 12px;
-            }
-
-            .message {
-                font-size: 0.88rem;
-                line-height: 1.45;
-                margin-bottom: 16px;
-                padding: 0;
-            }
-
-            .details-box {
-                padding: 14px 12px;
-                margin-bottom: 18px;
-                border-radius: 14px;
-            }
-
-            .details-box h2 {
-                font-size: 1.05rem;
-                margin-bottom: 8px;
-            }
-
-            .detail-item {
-                font-size: 0.88rem;
-                gap: 8px;
-                margin-bottom: 6px;
-            }
-
-            .detail-icon {
-                font-size: 1.1rem;
-            }
-
-            .showcase-btn {
-                font-size: 1rem;
-                padding: 10px 20px;
-                min-width: 100%;
-            }
-
-            .see-you-banner {
-                margin-top: 18px;
-                font-size: 1.5rem;
-                padding: 8px 16px;
-            }
-
-            .rocket-emoji {
-                font-size: 5.5rem;
-            }
-
-            .rocket-container {
-                width: 240px;
-            }
-
-            .milestone-card img {
-                height: 130px;
-            }
-
-            .scream-canister {
-                bottom: 12px;
-                right: 12px;
-                font-size: 0.8rem;
-                padding: 8px 10px;
-            }
-
-            .npc-box {
-                bottom: 60px;
-            }
-
-            .npc-dialogue {
-                font-size: 0.8rem;
-                padding: 8px 12px;
-                max-width: 150px;
-                margin-right: -20px;
-                margin-top: 10px;
-            }
-
-            .npc-image-wrap {
-                width: 150px;
-            }
+            body { padding: 12px 10px; }
+            .sweet-note-card { padding: 22px 16px; }
+            .sweet-note-card p { font-size: 0.92rem; }
+            .invitation-card { padding: 22px 16px 20px; border-width: 4px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), inset 0 0 0 4px #00b4d8; }
+            .tagline { font-size: 0.95rem; }
+            h1 { font-size: 2.2rem; margin-top: 8px; margin-bottom: 8px; text-shadow: 2px 2px 0px #ccff00, 3px 3px 0px #00b4d8; }
+            .sub-name { font-size: 1.1rem; margin-bottom: 12px; }
+            .message { font-size: 0.88rem; line-height: 1.45; margin-bottom: 24px; padding: 0; }
+            .details-box { padding: 18px 12px 12px 12px; margin-bottom: 18px; border-radius: 16px; }
+            .details-box h2 { font-size: 1rem; padding: 4px 14px; margin: -32px auto 12px auto; }
+            .detail-item { font-size: 0.88rem; gap: 8px; margin-bottom: 8px; padding: 8px 10px; }
+            .detail-item strong { font-size: 0.95rem; }
+            .detail-icon-bg { width: 30px; height: 30px; font-size: 0.95rem; }
+            .showcase-btn { font-size: 1rem; padding: 10px 20px; min-width: 100%; }
+            .see-you-banner { margin-top: 18px; font-size: 1.5rem; padding: 8px 16px; }
+            .rocket-emoji { font-size: 5.5rem; }
+            .rocket-container { width: 240px; }
+            .milestone-card img { height: 130px; }
+            .scream-canister { bottom: 12px; right: 12px; font-size: 0.8rem; padding: 8px 10px; }
+            .npc-box { bottom: 60px; }
+            .npc-dialogue { font-size: 0.8rem; padding: 8px 12px; max-width: 150px; margin-right: -20px; margin-top: 10px; }
+            .npc-image-wrap { width: 150px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Centered Modal with Dimmed Background & Sweet Message -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="sweet-note-card">
+            <div class="heart-icon">💖</div>
+            <p>
+                "Time flies so fast! It feels like just yesterday she was tiny, and now our sweet little monster is turning 1 year old! We are so happy and grateful that you are joining us to celebrate this wonderful milestone!"
+            </p>
+            <button class="dismiss-btn" onclick="closeIntroModal()">Let's Party, Little Monster! 🎉</button>
+        </div>
+    </div>
 
     <div class="invitation-card">
         <div class="monster-eye"><div class="pupil" id="pupil"></div></div>
@@ -517,17 +546,16 @@
         </p>
 
         <div class="details-box">
-            <h2>Campus Headquarters</h2>
             <div class="detail-item">
-                <span class="detail-icon">📅</span>
+                <div class="detail-icon-bg">📅</div>
                 <div><strong>When:</strong> Saturday, October 3, 2026</div>
             </div>
             <div class="detail-item">
-                <span class="detail-icon">⏰</span>
+                <div class="detail-icon-bg">⏰</div>
                 <div><strong>Time:</strong> Start at 2:00 PM</div>
             </div>
             <div class="detail-item">
-                <span class="detail-icon">📍</span>
+                <div class="detail-icon-bg">📍</div>
                 <div><strong>Where:</strong> <a href="https://maps.app.goo.gl/hvqYKTiiPGuq5emk6" target="_blank" rel="noopener noreferrer">Purok 1, Barangay Sinalhan, Santa Rosa, Laguna</a></div>
             </div>
         </div>
@@ -553,6 +581,7 @@
         <div class="rocket-emoji">🚀</div>
         
         <div class="milestone-ribbon">
+            <div class="milestone-card"><img src="newborn.jpeg" alt="Month 1"><span>New Born 🍼</span></div>
             <div class="milestone-card"><img src="month1.jpeg" alt="Month 1"><span>1st 🍼</span></div>
             <div class="milestone-card"><img src="month2.jpeg" alt="Month 2"><span>2nd 🍼</span></div>
             <div class="milestone-card"><img src="month3.jpeg" alt="Month 3"><span>3rd 🍼</span></div>
@@ -563,14 +592,138 @@
             <div class="milestone-card"><img src="month8.jpeg" alt="Month 8"><span>8th 🌟</span></div>
             <div class="milestone-card"><img src="month9.jpeg" alt="Month 9"><span>9th 🌟</span></div>
             <div class="milestone-card"><img src="month10.jpeg" alt="Month 10"><span>10th 💖</span></div>
-            <div class="milestone-card"><img src="month11.jpeg" alt="Month 11"><span>11th 💖</span></div>
+            <div class="milestone-card"><img src="month11.jpg" alt="Month 11"><span>11th 💖</span></div>
         </div>
 
         <div class="see-you-banner">See You There! 🎉</div>
     </div>
 
     <script>
-        // Array of Monster Thank You Messages
+        function closeIntroModal() {
+            const overlay = document.getElementById('modalOverlay');
+            overlay.classList.add('hidden');
+        }
+
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playChargeSound(pitchMultiplier = 1) {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(300 * pitchMultiplier, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(600 * pitchMultiplier, audioCtx.currentTime + 0.1);
+            
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        function playRoarSound() {
+            initAudio();
+            const now = audioCtx.currentTime;
+
+            const funOsc = audioCtx.createOscillator();
+            const funGain = audioCtx.createGain();
+
+            funOsc.type = 'triangle';
+            funOsc.frequency.setValueAtTime(523.25, now);
+            funOsc.frequency.exponentialRampToValueAtTime(1046.50, now + 0.3);
+
+            funGain.gain.setValueAtTime(0.25, now);
+            funGain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+
+            funOsc.connect(funGain);
+            funGain.connect(audioCtx.destination);
+
+            const roarOsc = audioCtx.createOscillator();
+            roarOsc.type = 'sawtooth';
+            roarOsc.frequency.setValueAtTime(220, now);
+            roarOsc.frequency.exponentialRampToValueAtTime(90, now + 0.7);
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(1200, now);
+            filter.frequency.exponentialRampToValueAtTime(400, now + 0.7);
+
+            const bufferSize = audioCtx.sampleRate * 0.7;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+
+            const noise = audioCtx.createBufferSource();
+            noise.buffer = buffer;
+
+            const noiseFilter = audioCtx.createBiquadFilter();
+            noiseFilter.type = 'bandpass';
+            noiseFilter.frequency.setValueAtTime(600, now);
+            noiseFilter.Q.setValueAtTime(2, now);
+
+            const masterGain = audioCtx.createGain();
+            masterGain.gain.setValueAtTime(0.35, now);
+            masterGain.gain.exponentialRampToValueAtTime(0.01, now + 0.75);
+
+            roarOsc.connect(filter);
+            filter.connect(masterGain);
+
+            noise.connect(noiseFilter);
+            noiseFilter.connect(masterGain);
+
+            masterGain.connect(audioCtx.destination);
+
+            funOsc.start(now);
+            roarOsc.start(now);
+            noise.start(now);
+
+            funOsc.stop(now + 0.5);
+            roarOsc.stop(now + 0.75);
+            noise.stop(now + 0.75);
+        }
+
+        function playLaunchSound() {
+            initAudio();
+            const bufferSize = audioCtx.sampleRate * 1.5;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+
+            const noise = audioCtx.createBufferSource();
+            noise.buffer = buffer;
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(200, audioCtx.currentTime);
+            filter.frequency.exponentialRampToValueAtTime(2000, audioCtx.currentTime + 1);
+
+            const gain = audioCtx.createGain();
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.5);
+
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+            noise.start();
+        }
+
         const monsterMessages = [
             "Hello! Thanks for coming to Amara's 1st Birthday!",
             "ROAR! Another awesome monster joined!",
@@ -578,7 +731,6 @@
             "Welcome! Ready for launch!"
         ];
 
-        // 1. NPC Trigger -> Rocket Launch
         function triggerMonsterNPC() {
             const btn = document.getElementById('showcaseBtn');
             const npcBox = document.getElementById('npcBox');
@@ -586,21 +738,18 @@
 
             btn.disabled = true;
 
-            // Pick a random message
             const randomMsg = monsterMessages[Math.floor(Math.random() * monsterMessages.length)];
             npcText.innerText = randomMsg;
 
-            // Slide in monster image from right
             npcBox.classList.add('show');
+            playChargeSound(1.2);
 
-            // Monster stays on screen for 4 seconds before launching
             setTimeout(() => {
                 npcBox.classList.remove('show');
                 startLaunchSequence();
             }, 4000);
         }
 
-        // 2. Short Launch Sequence (1 Second) with Confetti
         function startLaunchSequence() {
             const btn = document.getElementById('showcaseBtn');
             const rocket = document.getElementById('rocketContainer');
@@ -616,7 +765,8 @@
                     clearInterval(timer);
                     btn.innerText = "LIFTOFF! 💥";
 
-                    // Trigger Confetti Pop
+                    playLaunchSound();
+
                     if (typeof confetti === 'function') {
                         confetti({
                             particleCount: 120,
@@ -639,21 +789,23 @@
             }, 1000);
         }
 
-        // 3. Interactive Scream Canister
         let energy = 0;
         function chargeScreamCanister() {
             if (energy < 100) {
                 energy += 10;
                 document.getElementById('screampct').innerText = energy + '%';
                 document.getElementById('canisterBar').style.width = energy + '%';
-            } else {
+                playChargeSound(1 + (energy / 100));
+            }
+            
+            if (energy === 100) {
+                playRoarSound();
                 if (typeof confetti === 'function') {
-                    confetti({ particleCount: 50, spread: 60, origin: { y: 0.8 } });
+                    confetti({ particleCount: 60, spread: 70, origin: { y: 0.8 } });
                 }
             }
         }
 
-        // 4. Eye Movement Tracking
         function updatePupilPosition(clientX, clientY) {
             const pupil = document.getElementById('pupil');
             if (!pupil) return;

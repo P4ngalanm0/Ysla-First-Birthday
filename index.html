@@ -386,6 +386,7 @@
             cursor: pointer;
             text-align: center;
             user-select: none;
+            touch-action: manipulation;
             transition: transform 0.1s ease;
         }
 
@@ -570,7 +571,7 @@
         </div>
     </div>
 
-    <div class="scream-canister" onclick="chargeScreamCanister()">
+    <div class="scream-canister" id="screamCanisterBtn" onclick="chargeScreamCanister()">
         ⚡ Tap to Charge: <span id="screampct">0%</span>
         <div class="scream-track">
             <div class="scream-fill" id="canisterBar"></div>
@@ -581,7 +582,7 @@
         <div class="rocket-emoji">🚀</div>
         
         <div class="milestone-ribbon">
-            <div class="milestone-card"><img src="newborn.jpeg" alt="Month 1"><span>New Born 🍼</span></div>
+            <div class="milestone-card"><img src="newborn.jpeg" alt="New Born"><span>New Born 🍼</span></div>
             <div class="milestone-card"><img src="month1.jpeg" alt="Month 1"><span>1st 🍼</span></div>
             <div class="milestone-card"><img src="month2.jpeg" alt="Month 2"><span>2nd 🍼</span></div>
             <div class="milestone-card"><img src="month3.jpeg" alt="Month 3"><span>3rd 🍼</span></div>
@@ -599,11 +600,6 @@
     </div>
 
     <script>
-        function closeIntroModal() {
-            const overlay = document.getElementById('modalOverlay');
-            overlay.classList.add('hidden');
-        }
-
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
@@ -614,10 +610,30 @@
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
+            if (navigator.audioSession) {
+                navigator.audioSession.type = 'playback';
+            }
+        }
+
+        // Unlock audio context on any initial user touch/click across the document
+        function unlockAudio() {
+            initAudio();
+            document.removeEventListener('touchstart', unlockAudio);
+            document.removeEventListener('click', unlockAudio);
+        }
+        document.addEventListener('touchstart', unlockAudio, { once: true });
+        document.addEventListener('click', unlockAudio, { once: true });
+
+        function closeIntroModal() {
+            initAudio();
+            const overlay = document.getElementById('modalOverlay');
+            overlay.classList.add('hidden');
         }
 
         function playChargeSound(pitchMultiplier = 1) {
             initAudio();
+            if (!audioCtx) return;
+
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             
@@ -636,6 +652,8 @@
 
         function playRoarSound() {
             initAudio();
+            if (!audioCtx) return;
+
             const now = audioCtx.currentTime;
 
             const funOsc = audioCtx.createOscillator();
@@ -699,6 +717,8 @@
 
         function playLaunchSound() {
             initAudio();
+            if (!audioCtx) return;
+
             const bufferSize = audioCtx.sampleRate * 1.5;
             const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
             const data = buffer.getChannelData(0);
@@ -732,6 +752,7 @@
         ];
 
         function triggerMonsterNPC() {
+            initAudio();
             const btn = document.getElementById('showcaseBtn');
             const npcBox = document.getElementById('npcBox');
             const npcText = document.getElementById('npcText');
@@ -791,6 +812,7 @@
 
         let energy = 0;
         function chargeScreamCanister() {
+            initAudio();
             if (energy < 100) {
                 energy += 10;
                 document.getElementById('screampct').innerText = energy + '%';

@@ -5,20 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amara Ysla's 1st Birthday - Monsters University Theme</title>
 
-<!-- Open Graph / Messenger Preview Meta Tags -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://p4ngalanm0.github.io/Ysla-First-Birthday/">
-<meta property="og:title" content="💌 You're Invited! Amara Ysla's 1st Birthday">
-<meta property="og:description" content="Tap to open invitation details✨">
-<meta property="og:image" content="https://p4ngalanm0.github.io/Ysla-First-Birthday/msg_invi.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://p4ngalanm0.github.io/Ysla-First-Birthday/">
+    <meta property="og:title" content="💌 You're Invited! Amara Ysla's 1st Birthday">
+    <meta property="og:description" content="Tap to open invitation details✨">
+    <meta property="og:image" content="https://p4ngalanm0.github.io/Ysla-First-Birthday/msg_invi.jpg">
 
-<!-- Twitter Card Meta Tags -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content="💌 You're Invited! Amara Ysla's 1st Birthday">
-<meta property="twitter:description" content="Tap to open invitation details✨">
-<meta property="twitter:image" content="https://p4ngalanm0.github.io/Ysla-First-Birthday/msg_invi.jpg">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="💌 You're Invited! Amara Ysla's 1st Birthday">
+    <meta property="twitter:description" content="Tap to open invitation details✨">
+    <meta property="twitter:image" content="https://p4ngalanm0.github.io/Ysla-First-Birthday/msg_invi.jpg">
 
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@600;800&family=Paytone+One&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -53,6 +54,104 @@
             border: 6px solid #e209d7;
             position: relative;
             z-index: 2;
+        }
+
+        /* Interactive Eye Feature */
+        .monster-eye {
+            width: 52px;
+            height: 52px;
+            background: #ffffff;
+            border-radius: 50%;
+            border: 4px solid #6b21a8;
+            position: absolute;
+            top: -26px;
+            right: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .pupil {
+            width: 22px;
+            height: 22px;
+            background: #00b4d8;
+            border: 3px solid #1e293b;
+            border-radius: 50%;
+            transition: transform 0.05s ease-out;
+            pointer-events: none;
+        }
+
+        /* Image Monster NPC Box (Right Side Pop-in) */
+        .npc-box {
+            position: fixed;
+            bottom: 70px;
+            right: -600px; /* Hidden off-screen by default */
+            display: flex;
+            align-items: flex-start;
+            z-index: 2000;
+            transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .npc-box.show {
+            right: 10px;
+        }
+
+        /* Speech Bubble Positioned Near Waving Hand */
+        .npc-dialogue {
+            background: #ffffff;
+            border: 4px solid #ccff00;
+            padding: 12px 16px;
+            border-radius: 20px 20px 0px 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+            color: #6b21a8;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.95rem;
+            position: relative;
+            line-height: 1.3;
+            max-width: 210px;
+            margin-right: -25px;
+            margin-top: 20px;
+            z-index: 2;
+        }
+
+        .npc-dialogue::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: -10px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-left-color: #ccff00;
+            border-bottom: 0;
+            transform: rotate(-15deg);
+        }
+
+        /* Scaled Up Monster Container */
+        .npc-image-wrap {
+            width: 220px;
+            height: auto;
+            flex-shrink: 0;
+            background: transparent;
+            overflow: visible;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
+            animation: monsterWiggle 0.8s infinite alternate ease-in-out;
+            z-index: 1;
+        }
+
+        .npc-image-wrap img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        @keyframes monsterWiggle {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-10px) rotate(3deg); }
         }
 
         .tagline {
@@ -158,6 +257,46 @@
             cursor: not-allowed;
             transform: none;
             opacity: 0.9;
+        }
+
+        /* Interactive Scream Canister Widget */
+        .scream-canister {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #111827;
+            border: 3px solid #ccff00;
+            border-radius: 16px;
+            padding: 10px 14px;
+            color: #ffffff;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            z-index: 1000;
+            cursor: pointer;
+            text-align: center;
+            user-select: none;
+            transition: transform 0.1s ease;
+        }
+
+        .scream-canister:active {
+            transform: scale(0.95);
+        }
+
+        .scream-track {
+            height: 10px;
+            background: #374151;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+
+        .scream-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #a3e635, #00b4d8);
+            width: 0%;
+            transition: width 0.2s ease-in-out;
         }
 
         /* Rocket & Milestone Banner Container */
@@ -339,12 +478,37 @@
             .milestone-card img {
                 height: 130px;
             }
+
+            .scream-canister {
+                bottom: 12px;
+                right: 12px;
+                font-size: 0.8rem;
+                padding: 8px 10px;
+            }
+
+            .npc-box {
+                bottom: 60px;
+            }
+
+            .npc-dialogue {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+                max-width: 150px;
+                margin-right: -20px;
+                margin-top: 10px;
+            }
+
+            .npc-image-wrap {
+                width: 150px;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="invitation-card">
+        <div class="monster-eye"><div class="pupil" id="pupil"></div></div>
+
         <div class="tagline">Calling All Little Monsters!</div>
         <h1>Amara Ysla</h1>
         <div class="sub-name">Is Turning One Monstrous Year Old!</div>
@@ -368,7 +532,21 @@
             </div>
         </div>
 
-        <button id="showcaseBtn" onclick="startLaunchSequence()" class="showcase-btn">See Amara's Journey! 🚀</button>
+        <button id="showcaseBtn" onclick="triggerMonsterNPC()" class="showcase-btn">See Amara's Journey! 🚀</button>
+    </div>
+
+    <div id="npcBox" class="npc-box">
+        <div id="npcText" class="npc-dialogue">"ROAR! Thanks for joining Amara's party!"</div>
+        <div class="npc-image-wrap">
+            <img src="msg_hi.png" alt="Monster Greeting">
+        </div>
+    </div>
+
+    <div class="scream-canister" onclick="chargeScreamCanister()">
+        ⚡ Tap to Charge: <span id="screampct">0%</span>
+        <div class="scream-track">
+            <div class="scream-fill" id="canisterBar"></div>
+        </div>
     </div>
 
     <div id="rocketContainer" class="rocket-container">
@@ -392,13 +570,42 @@
     </div>
 
     <script>
+        // Array of Monster Thank You Messages
+        const monsterMessages = [
+            "Hello! Thanks for coming to Amara's 1st Birthday!",
+            "ROAR! Another awesome monster joined!",
+            "Yay! Let's start the rocket show!",
+            "Welcome! Ready for launch!"
+        ];
+
+        // 1. NPC Trigger -> Rocket Launch
+        function triggerMonsterNPC() {
+            const btn = document.getElementById('showcaseBtn');
+            const npcBox = document.getElementById('npcBox');
+            const npcText = document.getElementById('npcText');
+
+            btn.disabled = true;
+
+            // Pick a random message
+            const randomMsg = monsterMessages[Math.floor(Math.random() * monsterMessages.length)];
+            npcText.innerText = randomMsg;
+
+            // Slide in monster image from right
+            npcBox.classList.add('show');
+
+            // Monster stays on screen for 4 seconds before launching
+            setTimeout(() => {
+                npcBox.classList.remove('show');
+                startLaunchSequence();
+            }, 4000);
+        }
+
+        // 2. Short Launch Sequence (1 Second) with Confetti
         function startLaunchSequence() {
             const btn = document.getElementById('showcaseBtn');
             const rocket = document.getElementById('rocketContainer');
             
-            btn.disabled = true;
-            let countdown = 3;
-
+            let countdown = 1;
             btn.innerText = `Launching in ${countdown}... 🚀`;
             
             const timer = setInterval(() => {
@@ -408,6 +615,16 @@
                 } else {
                     clearInterval(timer);
                     btn.innerText = "LIFTOFF! 💥";
+
+                    // Trigger Confetti Pop
+                    if (typeof confetti === 'function') {
+                        confetti({
+                            particleCount: 120,
+                            spread: 80,
+                            origin: { y: 0.6 },
+                            colors: ['#ccff00', '#00b4d8', '#ff007f', '#6b21a8']
+                        });
+                    }
                     
                     rocket.classList.remove('launching');
                     void rocket.offsetWidth; 
@@ -421,6 +638,40 @@
                 }
             }, 1000);
         }
+
+        // 3. Interactive Scream Canister
+        let energy = 0;
+        function chargeScreamCanister() {
+            if (energy < 100) {
+                energy += 10;
+                document.getElementById('screampct').innerText = energy + '%';
+                document.getElementById('canisterBar').style.width = energy + '%';
+            } else {
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 50, spread: 60, origin: { y: 0.8 } });
+                }
+            }
+        }
+
+        // 4. Eye Movement Tracking
+        function updatePupilPosition(clientX, clientY) {
+            const pupil = document.getElementById('pupil');
+            if (!pupil) return;
+            const rect = pupil.getBoundingClientRect();
+            const x = (clientX - rect.left - rect.width / 2) / 12;
+            const y = (clientY - rect.top - rect.height / 2) / 12;
+            pupil.style.transform = `translate(${Math.max(-10, Math.min(10, x))}px, ${Math.max(-10, Math.min(10, y))}px)`;
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            updatePupilPosition(e.clientX, e.clientY);
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                updatePupilPosition(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        });
     </script>
 
 </body>
